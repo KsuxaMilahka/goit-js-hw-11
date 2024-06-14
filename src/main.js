@@ -22,6 +22,8 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
+  form.reset();
+
   showLoader(); // Показуємо лоадер перед завантаженням зображень
 
   fetchImages(query)
@@ -38,5 +40,5 @@ form.addEventListener('submit', (e) => {
       showError('Something went wrong. Please try again later.');
       console.error(error);
     });
-  form.reset();
+  
 });
