@@ -38,4 +38,5 @@ form.addEventListener('submit', (e) => {
       showError('Something went wrong. Please try again later.');
       console.error(error);
     });
+  form.reset();
 });
