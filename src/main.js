@@ -15,22 +15,24 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-   loader.style.display = 'block';
+  loader.style.display = 'block'; 
 
   fetchImages(query)
     .then(data => {
-      gallery.innerHTML = '';
+      loader.style.display = 'none'; 
+
+      gallery.innerHTML = ''; 
 
       if (data.hits.length === 0) {
         showError('Sorry, there are no images matching your search query. Please try again!');
         return;
       }
+
       renderImageGallery(data.hits);
     })
     .catch(() => {
+      loader.style.display = 'none'; 
+      gallery.innerHTML = ''; 
       showError('Something went wrong. Please try again later.');
-    })
-    .finally(() => {
-       loader.style.display = 'none';
     });
 });
