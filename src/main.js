@@ -4,14 +4,7 @@ import { renderImageGallery, showError } from './js/render-functions.js';
 const form = document.querySelector('.search-form');
 const input = document.querySelector('input[name="query"]');
 const gallery = document.querySelector('.gallery');
-
-function showLoader() {
-  document.getElementById('loader').style.display = 'block';
-}
-
-function hideLoader() {
-  document.getElementById('loader').style.display = 'none';
-}
+const loader = document.getElementById('loader');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -22,23 +15,25 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  form.reset();
-
-  showLoader(); // Показуємо лоадер перед завантаженням зображень
+  // Показати індикатор завантаження
+  loader.style.display = 'block';
 
   fetchImages(query)
     .then(data => {
-      hideLoader(); // Приховуємо лоадер після завантаження зображень
+      // Видалення попереднього контенту
+      gallery.innerHTML = '';
+
       if (data.hits.length === 0) {
         showError('Sorry, there are no images matching your search query. Please try again!');
         return;
       }
       renderImageGallery(data.hits);
     })
-    .catch(error => {
-      hideLoader(); // Приховуємо лоадер у випадку помилки
+    .catch(() => {
       showError('Something went wrong. Please try again later.');
-      console.error(error);
+    })
+    .finally(() => {
+      // Приховати індикатор завантаження
+      loader.style.display = 'none';
     });
-  
 });
