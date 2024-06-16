@@ -15,15 +15,15 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
+  gallery.innerHTML = ''; 
   loader.style.display = 'block'; 
 
   fetchImages(query)
     .then(data => {
       loader.style.display = 'none'; 
 
-      gallery.innerHTML = ''; 
-
       if (data.hits.length === 0) {
+        gallery.innerHTML = ''; 
         showError('Sorry, there are no images matching your search query. Please try again!');
         return;
       }
@@ -35,4 +35,5 @@ form.addEventListener('submit', (e) => {
       gallery.innerHTML = ''; 
       showError('Something went wrong. Please try again later.');
     });
+  form.reset();
 });
