@@ -15,12 +15,10 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  // Показати індикатор завантаження
-  loader.style.display = 'block';
+   loader.style.display = 'block';
 
   fetchImages(query)
     .then(data => {
-      // Видалення попереднього контенту
       gallery.innerHTML = '';
 
       if (data.hits.length === 0) {
@@ -33,7 +31,6 @@ form.addEventListener('submit', (e) => {
       showError('Something went wrong. Please try again later.');
     })
     .finally(() => {
-      // Приховати індикатор завантаження
-      loader.style.display = 'none';
+       loader.style.display = 'none';
     });
 });
